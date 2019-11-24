@@ -1,0 +1,45 @@
+{
+  "exclude": ["node_modules", "build"],
+  "include": ["src/background", "src/contentscript"],
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": [
+      "dom",
+      "es2017"
+    ],
+    "jsx": "react",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "outDir": "build",
+    "rootDir": "./",
+    "strict": true,
+    "noImplicitAny": true,
+    "baseUrl": ".",
+    "paths": {
+      "~contentscript/*": [
+        "src/contentscript/*"
+      ],
+      "~popup/*": [
+        "src/popup/*"
+      ],
+      "~styles/*": [
+        "src/popup/styles/*"
+      ],
+      "~background/*": [
+        "src/background/*"
+      ],
+      "~/*": [
+        "src/*"
+      ]
+    },
+    "types": ["@types/chrome", "node"],
+    "typeRoots": [
+      "node_modules/@types/*", "src/@types/*"
+    ],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
