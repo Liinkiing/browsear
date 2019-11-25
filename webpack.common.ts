@@ -21,7 +21,7 @@ const config: webpack.Configuration = {
   module: {
     rules: [
       {
-        test: /\.tsx$/,
+        test: /\.tsx?$/,
         use: ['babel-loader', 'eslint-loader'],
         exclude: /node_modules/
       },
@@ -32,7 +32,9 @@ const config: webpack.Configuration = {
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
   plugins: [
-    new ForkTsCheckerWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      eslint: true
+    }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'popup.html'),
       inject: 'body',
