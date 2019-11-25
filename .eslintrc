@@ -6,11 +6,10 @@
     "prettier/@typescript-eslint",
     "prettier"
   ],
-  "globals": {
-    "chrome": true,
-    "__dirname": true
-  },
   "env": {
+    "node": true,
+    "webextensions": true,
+    "es6": true,
     "browser": true
   },
   "parser": "@typescript-eslint/parser",

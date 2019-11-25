@@ -6,9 +6,12 @@ import useSongStore from './hooks/useSongStore'
 interface Props {}
 
 const PopupApp: React.FC<Props> = () => {
-  const { count, increment, decrement } = useSongStore()
+  const { count, increment, decrement, age, name, changeAge } = useSongStore()
   return (
     <PopupAppInner>
+      <input type="number" value={age} onChange={evt => {
+        changeAge(Number(evt.target.value))
+      }}/>
       <button onClick={decrement}>-</button>I am the popup {count}
       <button onClick={increment}>+</button>
     </PopupAppInner>
