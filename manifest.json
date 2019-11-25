@@ -1,8 +1,8 @@
 {
-  "name": "React TS Extension Starter",
+  "name": "Musicalapp",
   "author": "Omar Jbara <omar.jbara2@gmail.com>",
   "version": "1.0.0",
-  "description": "A web browser extension starter based on Typescript, React and Webpack made to kickstart your next extension.",
+  "description": "A Chrome extension made to find song a breeze!",
   "icons": {
     "128": "assets/icon-128.png"
   },
@@ -27,7 +27,7 @@
     "persistent": true
   },
   "browser_action": {
-    "default_title": "React TS Extension Starter",
+    "default_title": "Musicalapp",
     "default_icon": "assets/icon-48.png",
     "default_popup": "popup.html"
   },

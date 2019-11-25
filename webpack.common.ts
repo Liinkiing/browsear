@@ -37,7 +37,7 @@ const config: webpack.Configuration = {
       template: path.join(__dirname, 'popup.html'),
       inject: 'body',
       filename: 'popup.html',
-      title: 'React TS Starter',
+      title: 'Musicalapp',
       chunks: ['popup'],
     }),
     new CopyWebpackPlugin([

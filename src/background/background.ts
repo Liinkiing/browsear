@@ -1,1 +1,3 @@
-console.log('i am the background script')
+chrome.runtime.onInstalled.addListener(() => {
+  console.log('app was installed')
+})

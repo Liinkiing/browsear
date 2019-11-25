@@ -1,17 +1,14 @@
 {
-  "name": "react-extension-webpack-typescript-starter",
+  "name": "musicalapp",
   "version": "1.0.0",
-  "description": "A simple starter to kickstart your next Chrome extension powered by Typescript and React",
-  "repository": "https://github.com/Liinkiing/extension-webpack-typescript-starter",
+  "description": "A Chrome extension made to find song a breeze!",
+  "repository": "https://github.com/Liinkiing/musicalapp",
   "author": "Omar Jbara <omar.jbara2@gmail.com>",
   "license": "MIT",
   "keywords": [
     "react",
     "webpack",
     "typescript",
-    "template",
-    "starter",
-    "boilerplate",
     "chrome-extension",
     "extension"
   ],
