@@ -4,7 +4,9 @@ class StorageHelper {
     return new Promise<T>(resolve => {
       chrome.storage.sync.get(key, data => {
         console.log(`getting ${key}: `, data)
-        resolve(data[key])
+        if (data[key]) {
+          resolve(data[key])
+        }
       })
     })
   }
@@ -12,6 +14,12 @@ class StorageHelper {
   public set = <T>(key: string, value: T): void => {
     chrome.storage.sync.set({ [key]: value }, () => {
       console.log(`successfully set "${key}" to `, value)
+    })
+  }
+
+  public clear = (): void => {
+    chrome.storage.sync.clear(() => {
+      console.log('successfully cleared storage')
     })
   }
 

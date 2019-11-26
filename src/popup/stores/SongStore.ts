@@ -1,10 +1,9 @@
-import { observable, action, computed, autorun } from 'mobx'
-import StorageHelper from '../../services/StorageHelper'
+import { autorun, computed, observable } from 'mobx'
+import StorageHelper from '~/services/StorageHelper'
+import { MusicEntity } from '../../@types/api'
 
 interface SerializedSongStore {
-  count: number,
-  name: string,
-  age: number
+  readonly history: MusicEntity[],
 }
 
 const STORE_KEY = 'song-store'
@@ -19,38 +18,16 @@ export class SongStore {
     })
   }
 
-  @observable public count = 0
-  @observable public name = 'John Doe'
-  @observable public age = 22
-
-  @action public increment = (): void => {
-    this.count++
-  }
-
-  @action decrement = (): void => {
-    this.count--
-  }
-
-  @action changeName = (name: string): void => {
-    this.name = name
-  }
-
-  @action changeAge = (age: number): void => {
-    this.age = age
-  }
+  public readonly history = observable.array<MusicEntity>([], { deep: false })
 
   @computed private get serialized(): SerializedSongStore {
     return {
-      count: this.count,
-      name: this.name,
-      age: this.age
+      history: [...this.history]
     }
   }
 
   private populate(state: SerializedSongStore): void
   {
-    Object.entries(state).forEach(entry => {
-      (this as any)[entry[0]] = entry[1]
-    })
+    this.history.replace(state.history || [])
   }
 }

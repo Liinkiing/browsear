@@ -1,19 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import { observer } from 'mobx-react-lite'
-import useSongStore from './hooks/useSongStore'
+import SongList from './components/SongList'
 
 interface Props {}
 
 const PopupApp: React.FC<Props> = () => {
-  const { count, increment, decrement, age, name, changeAge } = useSongStore()
   return (
     <PopupAppInner>
-      <input type="number" value={age} onChange={evt => {
-        changeAge(Number(evt.target.value))
-      }}/>
-      <button onClick={decrement}>-</button>I am the popup {count}
-      <button onClick={increment}>+</button>
+      <SongList/>
     </PopupAppInner>
   )
 }
@@ -26,4 +20,4 @@ const PopupAppInner = styled.div`
   align-items: center;
 `
 
-export default observer(PopupApp)
+export default PopupApp
