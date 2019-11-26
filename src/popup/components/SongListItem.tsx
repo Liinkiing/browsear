@@ -14,7 +14,7 @@ const SongListItem: React.FC<Props> = ({ song }) => {
 
   return (
     <SongListItemInner>
-      {song.acrid} {song.title}
+      <h1>{song.title}</h1>
     </SongListItemInner>
   )
 }

@@ -1,6 +1,5 @@
 {
-  "exclude": ["node_modules", "build"],
-  "include": ["src/background", "src/contentscript"],
+  "exclude": ["node_modules", "build", "webpack.*.ts"],
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",

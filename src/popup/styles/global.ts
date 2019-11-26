@@ -15,7 +15,7 @@ export default createGlobalStyle`
   
   body {
     background: ${lightGray};
-    font-family: 'Helvetica', 'Segoe UI', sans-serif;
+    font-family: 'Montserrat', 'Helvetica', 'Segoe UI', sans-serif;
   }
   
   h1,
@@ -25,7 +25,7 @@ export default createGlobalStyle`
   h5,
   h6 {
     font-weight: 700;
-    font-family: 'Helvetica', 'Segoe UI', sans-serif;
+    font-family: 'Montserrat', 'Helvetica', 'Segoe UI', sans-serif;
   }
   
   a {

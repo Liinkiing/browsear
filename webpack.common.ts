@@ -21,6 +21,10 @@ const config: webpack.Configuration = {
   module: {
     rules: [
       {
+        test: /\.(eot|svg|ttf|woff|woff2|otf|png|jpg|jpeg)$/,
+        loader: 'file-loader',
+      },
+      {
         test: /\.tsx?$/,
         use: ['babel-loader', 'eslint-loader'],
         exclude: /node_modules/
