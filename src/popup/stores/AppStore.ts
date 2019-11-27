@@ -1,14 +1,16 @@
-import { autorun, computed, observable } from 'mobx'
-import { MusicEntity } from '~/@types/api'
+import { action, autorun, computed, observable } from 'mobx'
 import StorageHelper from '~/services/StorageHelper'
+import { AppTheme } from '~/enums'
 
 interface SerializedState {
-  readonly history: MusicEntity[]
+  readonly theme: AppTheme
 }
 
-const STORAGE_KEY = 'song-store'
+const STORAGE_KEY = 'app-store'
 
-export class SongStore {
+export class AppStore {
+  @observable public theme = AppTheme.Light
+
   constructor() {
     StorageHelper.get<SerializedState>(STORAGE_KEY).then(state => {
       this.populate(state)
@@ -18,16 +20,18 @@ export class SongStore {
     })
   }
 
-  public history = observable.array<MusicEntity>([], { deep: false })
+  @action public toggleTheme = (): void => {
+    this.theme = this.theme === AppTheme.Dark ? AppTheme.Light : AppTheme.Dark
+  }
 
   @computed
   protected get serialized(): SerializedState {
     return {
-      history: [...this.history]
+      theme: this.theme
     }
   }
 
   protected populate(state: SerializedState): void {
-    this.history.replace(state.history || [])
+    this.theme = state.theme
   }
 }

@@ -1,7 +1,7 @@
-export const dark = '#343740'
-export const red = '#ff5c7c'
-export const green = '#7ec575'
+export const dark = '#57585a'
+export const red = '#ef2f64'
+export const blue = '#00447b'
 export const lightGray = '#e8ebf3'
-export const white = '#f8f8f8'
+export const white = '#f2f3f4'
 
-export default [dark, green, red, lightGray, white]
+export default { dark, blue, red, lightGray, white }

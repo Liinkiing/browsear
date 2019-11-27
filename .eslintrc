@@ -22,7 +22,8 @@
   },
   "plugins": [
     "react",
-    "@typescript-eslint/eslint-plugin"
+    "@typescript-eslint/eslint-plugin",
+    "better-styled-components"
   ],
   "settings": {
     "react": {
@@ -32,8 +33,15 @@
   "rules": {
     "@typescript-eslint/no-unused-vars": "warn",
     "react/prop-types": "off",
+    "better-styled-components/sort-declarations-alphabetically": "warn",
     "@typescript-eslint/camelcase": "off",
     "react/destructuring-assignment": "warn",
+    "@typescript-eslint/explicit-function-return-type": [
+      "warn",
+      {
+        "allowExpressions": true
+      }
+    ],
     "@typescript-eslint/no-empty-interface": "off"
   }
 }

@@ -57,8 +57,8 @@ export interface Spotify {
 }
 
 export interface ArtistsEntityOrTrackOrAlbumOrGenresEntity {
-  id: string,
-  name?: string,
+  id: string
+  name?: string
 }
 
 export interface Deezer {
@@ -69,22 +69,22 @@ export interface Deezer {
 }
 
 export interface Track {
-  id: number | string,
+  id: number | string
   name?: string
 }
 
 export interface ArtistsEntity {
-  id: number | string,
+  id: number | string
   name?: string
 }
 
 export interface Album {
-  id: number | string,
+  id: number | string
   name?: string
 }
 
 export interface GenresEntity {
-  id: number | string,
+  id: number | string
 }
 
 export interface Status {

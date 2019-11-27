@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components'
-import { lightGray } from '~styles/modules/colors'
 import bootstrap from '~styles/bootstrap'
 
 export default createGlobalStyle`
@@ -14,7 +13,8 @@ export default createGlobalStyle`
   }
   
   body {
-    background: ${lightGray};
+    background: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.text};
     font-family: 'Montserrat', 'Helvetica', 'Segoe UI', sans-serif;
   }
   

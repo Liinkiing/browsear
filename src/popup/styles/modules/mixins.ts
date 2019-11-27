@@ -3,7 +3,7 @@ import { css, CSSObject, FlattenSimpleInterpolation } from 'styled-components'
 export const breakpoint = (
   size: 'mobile' | 'tablet' | 'desktop',
   innerCss: FlattenSimpleInterpolation | TemplateStringsArray | CSSObject
-) => {
+): FlattenSimpleInterpolation | TemplateStringsArray => {
   let px
   switch (size) {
     case 'mobile':
