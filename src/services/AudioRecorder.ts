@@ -57,7 +57,7 @@ export class AudioRecorder {
     const response = await ACRCloudClient.identify(sample)
     const match = response.data
       ? response.data.length > 0
-        ? response.data[0]
+        ? { ...response.data[0], requestedAt: Date.now() }
         : null
       : null
     if (match) {

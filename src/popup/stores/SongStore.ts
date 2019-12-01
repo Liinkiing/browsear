@@ -2,14 +2,16 @@ import { action, autorun, computed, observable } from 'mobx'
 import { Song } from '~/@types/api'
 import StorageHelper from '~/services/StorageHelper'
 
+type LocalSong = Song & { requestedAt: number }
+
 export interface SongSerializedState {
-  readonly history: Song[]
+  readonly history: LocalSong[]
 }
 
 export const SONG_STORAGE_KEY = 'song-store'
 
 export class SongStore {
-  public history = observable.array<Song>([], { deep: false })
+  public history = observable.array<LocalSong>([], { deep: false })
 
   @observable public recording =
     chrome.extension.getBackgroundPage()?.recorder.isRecording || false
@@ -36,7 +38,7 @@ export class SongStore {
   }
 
   @action public clear = (): void => {
-    this.history.replace([])
+    StorageHelper.clear(SONG_STORAGE_KEY).then(this.populateFromStorage)
   }
 
   @action public requestRecording = (): void => {
@@ -49,11 +51,11 @@ export class SongStore {
     this.recording = false
   }
 
-  protected populate(state: SongSerializedState): void {
+  protected populate = (state: SongSerializedState): void => {
     this.history.replace(state.history || [])
   }
 
-  protected populateFromStorage(): void {
+  protected populateFromStorage = (): void => {
     StorageHelper.get<SongSerializedState>(SONG_STORAGE_KEY).then(state => {
       this.populate(state)
     })

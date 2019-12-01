@@ -25,8 +25,10 @@ class StorageHelper {
     })
   }
 
-  public clear = (...keys: string[]): void => {
-    chrome.storage.sync.remove(keys)
+  public clear = (...keys: string[]): Promise<void> => {
+    return new Promise<void>(resolve => {
+      chrome.storage.sync.remove(keys, resolve)
+    })
   }
 }
 
