@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { MusicEntity } from '~/@types/api'
+import { Song } from '~/@types/api'
 
 interface Props {
-  readonly song: MusicEntity
+  readonly song: Song
 }
 
 const SongListItemInner = styled.div`

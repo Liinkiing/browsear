@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { observer } from 'mobx-react-lite'
-import SongListItem from './SongListItem'
 import useSongStore from '~popup/hooks/useSongStore'
 
 interface Props {}
@@ -9,13 +8,16 @@ interface Props {}
 const SongListInner = styled.div``
 
 const SongList: React.FC<Props> = () => {
-  const { history } = useSongStore()
-  console.log(history)
+  const { records } = useSongStore()
   return (
     <SongListInner>
-      {history.map(song => (
-        <SongListItem key={song.acrid} song={song} />
-      ))}
+      {records.map(record =>
+        <li key={record}>record {record}
+          <video controls>
+            <source src={record}/>
+          </video>
+        </li>
+      )}
     </SongListInner>
   )
 }

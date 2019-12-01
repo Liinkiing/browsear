@@ -17,10 +17,14 @@ class StorageHelper {
     })
   }
 
-  public clear = (): void => {
+  public clearAll = (): void => {
     chrome.storage.sync.clear(() => {
       console.log('successfully cleared storage')
     })
+  }
+
+  public clear = (...keys: string[]): void => {
+    chrome.storage.sync.remove(keys)
   }
 
 
