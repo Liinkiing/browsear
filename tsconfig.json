@@ -33,7 +33,7 @@
         "src/*"
       ]
     },
-    "types": ["@types/chrome", "node"],
+    "types": ["@types/chrome", "node", "@types/dom-mediacapture-record"],
     "typeRoots": [
       "node_modules/@types/*", "src/@types/*"
     ],

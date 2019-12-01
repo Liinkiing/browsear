@@ -42,6 +42,8 @@
         "allowExpressions": true
       }
     ],
-    "@typescript-eslint/no-empty-interface": "off"
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/triple-slash-reference": "off"
   }
 }
