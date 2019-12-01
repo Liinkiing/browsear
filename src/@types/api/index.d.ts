@@ -1,7 +1,7 @@
 export interface IdentifyRoot {
   status: number;
   msg: string;
-  data: Song[];
+  data?: Song[];
 }
 export interface Song {
   acr_id: string;

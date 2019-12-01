@@ -8,14 +8,12 @@ interface Props {}
 const SongListInner = styled.div``
 
 const SongList: React.FC<Props> = () => {
-  const { records } = useSongStore()
+  const { history } = useSongStore()
   return (
     <SongListInner>
-      {records.map(record =>
-        <li key={record}>record {record}
-          <video controls>
-            <source src={record}/>
-          </video>
+      {history.map((song, i) =>
+        <li key={`${i} - ${song.acr_id}`}>
+          {song.title} ({song.artist})
         </li>
       )}
     </SongListInner>

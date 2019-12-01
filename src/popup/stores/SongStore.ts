@@ -3,15 +3,12 @@ import { Song } from '~/@types/api'
 import StorageHelper from '~/services/StorageHelper'
 
 export interface SerializedState {
-  readonly history: Song[],
-  readonly records: string[]
+  readonly history: Song[]
 }
 
 export const STORAGE_KEY = 'song-store'
 
 export class SongStore {
-  public records = observable.array<string>([], { deep: false })
-
   public history = observable.array<Song>([], { deep: false })
 
   @observable public recording = chrome.extension.getBackgroundPage()?.recorder.isRecording
@@ -26,7 +23,9 @@ export class SongStore {
     chrome.runtime.onMessage.addListener(message => {
       if (message.type === 'FINISH_RECORDING') {
         this.recording = false
-        this.addRecord(message.payload.src)
+        if (message.payload.match) {
+          this.history.replace([message.payload.match, ...this.history])
+        }
       }
     })
   }
@@ -34,14 +33,12 @@ export class SongStore {
   @computed
   protected get serialized(): SerializedState {
     return {
-      history: [...this.history],
-      records: [...this.records]
+      history: [...this.history]
     }
   }
 
   @action public clear = (): void => {
     this.history.replace([])
-    this.records.replace([])
   }
 
   @action public requestRecording = (): void => {
@@ -54,12 +51,7 @@ export class SongStore {
     this.recording = false
   }
 
-  @action public addRecord = (record: string): void => {
-    this.records.push(record)
-  }
-
   protected populate(state: SerializedState): void {
     this.history.replace(state.history || [])
-    this.records.replace(state.records || [])
   }
 }

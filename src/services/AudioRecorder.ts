@@ -1,5 +1,3 @@
-import StorageHelper from '~/services/StorageHelper'
-import { SerializedState as SerializedSongState, STORAGE_KEY as SONG_STORAGE_KEY } from '~popup/stores/SongStore'
 import ACRCloudClient from '~/services/client/ACRCloudClient'
 
 export class AudioRecorder {
@@ -45,16 +43,11 @@ export class AudioRecorder {
     }
   }
 
-  private onRecordFinish = (sample: BlobEvent): void => {
-    ACRCloudClient.identify(sample).then(r => {
-      console.log(r)
-    })
-    chrome.runtime.sendMessage({ type: 'FINISH_RECORDING', payload: { src: URL.createObjectURL(sample.data) } })
-    StorageHelper.get<SerializedSongState>(SONG_STORAGE_KEY).then(state => {
-      StorageHelper.set<SerializedSongState>(SONG_STORAGE_KEY, {
-        ...state,
-        records: [...state.records, URL.createObjectURL(sample.data)]
-      })
+  private onRecordFinish = async (sample: BlobEvent) => {
+    const response = await ACRCloudClient.identify(sample)
+    chrome.runtime.sendMessage({
+      type: 'FINISH_RECORDING',
+      payload: { match: response.data ? response.data.length > 0 ? response.data[0] : null : null}
     })
   }
 
