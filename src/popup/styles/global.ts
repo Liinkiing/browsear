@@ -1,23 +1,25 @@
 import { createGlobalStyle } from 'styled-components'
 import bootstrap from '~styles/bootstrap'
+import { theme } from '~styles/themes'
 
 export default createGlobalStyle`
   ${bootstrap};
-  
+
   * {
     box-sizing: border-box;
   }
-  
+
   html {
     font-size: 100%;
   }
-  
+
   body {
-    background: ${({ theme }) => theme.colors.background};
-    color: ${({ theme }) => theme.colors.text};
+    transition: background 0.3s, color 0.1s;
+    background: ${props => theme(props).colors.background};
+    color: ${props => theme(props).colors.text};
     font-family: 'Montserrat', 'Helvetica', 'Segoe UI', sans-serif;
   }
-  
+
   h1,
   h2,
   h3,
@@ -27,7 +29,7 @@ export default createGlobalStyle`
     font-weight: 700;
     font-family: 'Montserrat', 'Helvetica', 'Segoe UI', sans-serif;
   }
-  
+
   a {
     color: inherit;
     text-decoration: none;

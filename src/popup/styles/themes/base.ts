@@ -1,12 +1,7 @@
 import { DefaultTheme } from 'styled-components'
-import { dark, lightGray } from '~styles/modules/colors'
 
-const theme: DefaultTheme = {
-  borderRadius: '4px',
-  colors: {
-    background: dark,
-    text: lightGray
-  }
+const theme: Partial<DefaultTheme> = {
+  borderRadius: '4px'
 }
 
-export default theme
+export default theme as DefaultTheme

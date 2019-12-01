@@ -2,36 +2,34 @@ import { action, autorun, computed, observable } from 'mobx'
 import { Song } from '~/@types/api'
 import StorageHelper from '~/services/StorageHelper'
 
-export interface SerializedState {
+export interface SongSerializedState {
   readonly history: Song[]
 }
 
-export const STORAGE_KEY = 'song-store'
+export const SONG_STORAGE_KEY = 'song-store'
 
 export class SongStore {
   public history = observable.array<Song>([], { deep: false })
 
-  @observable public recording = chrome.extension.getBackgroundPage()?.recorder.isRecording
+  @observable public recording =
+    chrome.extension.getBackgroundPage()?.recorder.isRecording || false
 
   constructor() {
-    StorageHelper.get<SerializedState>(STORAGE_KEY).then(state => {
-      this.populate(state)
-    })
+    this.populateFromStorage()
     autorun(() => {
-      StorageHelper.set(STORAGE_KEY, this.serialized)
+      StorageHelper.set(SONG_STORAGE_KEY, this.serialized)
     })
     chrome.runtime.onMessage.addListener(message => {
-      if (message.type === 'FINISH_RECORDING') {
+      if (message.type === 'STOP_RECORDING') {
         this.recording = false
-        if (message.payload.match) {
-          this.history.replace([message.payload.match, ...this.history])
-        }
+      } else if (message.type === 'MATCH_FOUND') {
+        this.populateFromStorage()
       }
     })
   }
 
   @computed
-  protected get serialized(): SerializedState {
+  protected get serialized(): SongSerializedState {
     return {
       history: [...this.history]
     }
@@ -51,7 +49,13 @@ export class SongStore {
     this.recording = false
   }
 
-  protected populate(state: SerializedState): void {
+  protected populate(state: SongSerializedState): void {
     this.history.replace(state.history || [])
+  }
+
+  protected populateFromStorage(): void {
+    StorageHelper.get<SongSerializedState>(SONG_STORAGE_KEY).then(state => {
+      this.populate(state)
+    })
   }
 }

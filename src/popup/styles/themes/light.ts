@@ -1,12 +1,20 @@
 import { DefaultTheme } from 'styled-components'
 import base from '~styles/themes/base'
-import { lightGray, dark } from '~styles/modules/colors'
+
+export const primary = '#00447b'
+export const secondary = '#ef2f64'
+export const tint = '#f2f3f4'
+export const background = '#e8ebf3'
+export const text = '#57585a'
 
 const theme: DefaultTheme = {
   ...base,
   colors: {
-    background: lightGray,
-    text: dark
+    primary,
+    secondary,
+    tint,
+    background,
+    text
   }
 }
 

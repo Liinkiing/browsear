@@ -1,16 +1,19 @@
 import React, { useCallback } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import SongList from './components/SongList'
 import GlobalStyle from '~styles/global'
 import { AppTheme } from '~/enums'
 import { dark, light } from '~styles/themes'
 import { observer } from 'mobx-react-lite'
 import useStores from '~popup/hooks/useStores'
+import SearchButton from '~popup/components/search-button'
 
 interface Props {}
 
 const PopupApp: React.FC<Props> = () => {
-  const { song: { requestRecording, stopRecording, recording, clear }, app: { toggleTheme, theme } } = useStores()
+  const {
+    song: { requestRecording, stopRecording, recording, clear },
+    app: { toggleTheme, theme }
+  } = useStores()
   const onClick = useCallback(() => {
     recording ? stopRecording() : requestRecording()
   }, [recording])
@@ -20,10 +23,15 @@ const PopupApp: React.FC<Props> = () => {
       <ThemeProvider theme={theme === AppTheme.Dark ? dark : light}>
         <GlobalStyle />
         <PopupAppInner>
-          <button onClick={toggleTheme}>toggle theme</button>
-          <button onClick={onClick}>{recording ? 'Stop' : 'Request'} Recording</button>
-          <button onClick={clear}>Clear</button>
-          <SongList />
+          <button
+            style={{ position: 'fixed', top: 20, left: 20 }}
+            onClick={toggleTheme}>
+            toggle theme
+          </button>
+          {/*<button onClick={onClick}>{recording ? 'Stop' : 'Request'} Recording</button>*/}
+          {/*<button onClick={clear}>Clear</button>*/}
+          {/*<SongList />*/}
+          <SearchButton recording={recording} onClick={onClick} />
         </PopupAppInner>
       </ThemeProvider>
     </>

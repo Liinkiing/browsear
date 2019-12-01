@@ -1,4 +1,4 @@
-import { AudioRecorder } from "~/services/AudioRecorder"
+import { AudioRecorder } from '~/services/AudioRecorder'
 
 window.recorder = new AudioRecorder()
 
@@ -9,11 +9,9 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.runtime.onMessage.addListener(message => {
   switch (message.type) {
     case 'INIT_RECORDING':
-      console.log('INIT_RECORDING')
       window.recorder.record()
       break
     case 'STOP_RECORDING':
-      console.log('STOP_RECORDING')
       window.recorder.stop()
       break
   }
