@@ -6,6 +6,7 @@ export const secondary = '#ffffff'
 export const tint = '#f2f3f4'
 export const background = '#57585a'
 export const text = '#f2f3f4'
+export const secondaryText = '#57585a'
 
 const theme: DefaultTheme = {
   ...base,
@@ -14,7 +15,8 @@ const theme: DefaultTheme = {
     secondary,
     tint,
     background,
-    text
+    text,
+    secondaryText
   }
 }
 
