@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 import { motion } from 'framer-motion'
 import { theme } from '~styles/themes'
 import AppButton from '~popup/components/ui/AppButton'
+import { customScrollbar } from '~styles/modules/mixins'
 
 export const HistoryViewInner = styled(motion.div)`
   background: ${props => theme(props).colors.secondary};
@@ -39,6 +40,7 @@ export const HistoryHeader = styled.div<{ hasScrolled: boolean }>`
 `
 
 export const HistoryContent = styled.div`
-  overflow-y: auto;
+  ${customScrollbar};
+  overflow-y: overlay;
   padding: 20px 40px;
 `

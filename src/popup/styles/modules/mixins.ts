@@ -23,3 +23,17 @@ export const breakpoint = (
     }
   `
 }
+
+export const customScrollbar = css`
+  &::-webkit-scrollbar {
+    width: 0.4rem;
+  }
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 6px;
+    position: absolute;
+  }
+`
