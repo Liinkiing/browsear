@@ -19,7 +19,7 @@ export class AudioRecorder {
     return this.recorder?.state === 'recording'
   }
 
-  public record = (duration = 5000): void => {
+  public record = (duration = 12000): void => {
     if (this.recorder?.state !== 'recording') {
       chrome.tabCapture.capture(
         {
