@@ -13,12 +13,10 @@ export const slideInUp = keyframes`
 
 export const blink = keyframes`
   from {
-    opacity: 0.3;
-    background: bisque;
+    opacity: 0.6;
   }
   to {
     opacity: 1;
-    background: transparent;
   }
 `
 

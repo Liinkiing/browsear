@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import SongThumbnailImage from '~popup/components/SongThumbnailImage'
 import { LocalSong } from '~popup/stores/SongStore'
 import { FaSpotify, FaYoutube } from 'react-icons/fa'
-import { darken } from 'polished'
+import { darken, lighten } from 'polished'
 import { theme } from '~styles/themes'
 import { blink } from '~styles/keyframes'
 
@@ -12,11 +12,16 @@ interface Props {
   readonly onDelete?: (song: LocalSong) => void
 }
 
-const SongListItemInner = styled.li<{ isUnread: boolean }>`
+const SongListItemInner = styled.div<{ isUnread: boolean }>`
+  background: ${props => theme(props).colors.background};
+  border-radius: 4px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.35);
+  color: ${props => theme(props).colors.text};
   display: flex;
+  overflow: hidden;
   transition: background 0.15s;
   &:hover {
-    background: ${props => darken(0.2, theme(props).colors.secondary)};
+    background: ${props => lighten(0.1, theme(props).colors.background)};
     cursor: pointer;
   }
   & h2 {

@@ -21,6 +21,7 @@ export class AppStore {
   }
 
   public clearBadge = (): void => {
+    chrome.extension.getBackgroundPage()!.unreadMatches = 0
     chrome.browserAction.setBadgeText({
       text: ''
     })

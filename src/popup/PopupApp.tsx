@@ -99,7 +99,7 @@ const PopupAppInner = styled.div`
   height: 500px;
   justify-content: center;
   overflow-y: auto;
-  width: 400px;
+  width: 500px;
 `
 
 const MainAppToolbar = styled(AppToolbar)`
