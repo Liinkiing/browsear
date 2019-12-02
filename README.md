@@ -1,4 +1,4 @@
-# ![Logo](.github/logo.png?raw=true 'Logo') Musicalapp
+# ![Logo](.github/logo.png?raw=true 'Logo') Musicalapp (a.k.a no name ideas™)
 
 Find your favorites song in a Shazam-like flavored experience
 
@@ -12,6 +12,33 @@ Find your favorites song in a Shazam-like flavored experience
 <img width="400" src="https://github.com/Liinkiing/musicalapp/raw/master/.github/screens/musicalapp.gif?raw=true">
 
 </p>
+
+## Installation
+
+Because it is currently not approved in the **Chrome Web Store**, you can freely test it
+by building the extension and load the unpacked version (located in `build` folder)
+
+```bash
+$ yarn
+# install dependencies
+
+$ yarn build
+# build production-ready files into a 'build' folder
+```
+
+### In Chrome web browser
+
+1. Go to: [**chrome://extensions**](chrome://extensions)
+2. Toggle: "**developer mode**" on
+3. Click on: "**Load unpacked**"
+4. Select the newly created folder "**build**" from the project folder
+
+### In Firefox web browser
+
+1. Go to: [**about:debugging**](about:debugging)
+2. Select: "**Enable add-on debugging**"
+3. Click on: "**Load Temporary Add-on…**"
+4. Open the newly created folder "**build**" from the project folder, and choose the "**manifest.json**" file
 
 ## Usage
 
