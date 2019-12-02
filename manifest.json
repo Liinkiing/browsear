@@ -1,5 +1,5 @@
 {
-  "name": "Musicalapp",
+  "name": "Brows'ear",
   "author": "Omar Jbara <omar.jbara2@gmail.com>",
   "version": "1.0.0",
   "description": "A Chrome extension made to find song a breeze!",
@@ -33,7 +33,7 @@
     "scripts": ["background.js"]
   },
   "browser_action": {
-    "default_title": "Musicalapp",
+    "default_title": "Brows'ear",
     "default_icon": "assets/icon-128-dark.png",
     "default_popup": "popup.html"
   },

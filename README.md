@@ -1,15 +1,15 @@
-# ![Logo](.github/logo.png?raw=true 'Logo') Musicalapp (a.k.a no name ideas™)
+# ![Logo](.github/logo.png?raw=true 'Logo') Brows'ear (a.k.a no name ideas™)
 
 Find your favorites song in a Shazam-like flavored experience
 
 <p align="center">
 
-<img width="300" src="https://github.com/Liinkiing/musicalapp/raw/master/.github/screens/main-light.png?raw=true">
-<img width="300" src="https://github.com/Liinkiing/musicalapp/raw/master/.github/screens/main-dark.png?raw=true">
-<img width="300" src="https://github.com/Liinkiing/musicalapp/raw/master/.github/screens/history-light.png?raw=true">
-<img width="300" src="https://github.com/Liinkiing/musicalapp/raw/master/.github/screens/history-dark.png?raw=true">
+<img width="300" src="https://github.com/Liinkiing/browsear/raw/master/.github/screens/main-light.png?raw=true">
+<img width="300" src="https://github.com/Liinkiing/browsear/raw/master/.github/screens/main-dark.png?raw=true">
+<img width="300" src="https://github.com/Liinkiing/browsear/raw/master/.github/screens/history-light.png?raw=true">
+<img width="300" src="https://github.com/Liinkiing/browsear/raw/master/.github/screens/history-dark.png?raw=true">
 
-<img width="400" src="https://github.com/Liinkiing/musicalapp/raw/master/.github/screens/musicalapp.gif?raw=true">
+<img width="400" src="https://github.com/Liinkiing/browsear/raw/master/.github/screens/browsear.gif?raw=true">
 
 </p>
 

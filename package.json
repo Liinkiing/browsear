@@ -1,8 +1,8 @@
 {
-  "name": "musicalapp",
+  "name": "browsear",
   "version": "1.0.0",
   "description": "A Chrome extension made to find song a breeze!",
-  "repository": "https://github.com/Liinkiing/musicalapp",
+  "repository": "https://github.com/Liinkiing/browsear",
   "author": "Omar Jbara <omar.jbara2@gmail.com>",
   "license": "MIT",
   "keywords": [
