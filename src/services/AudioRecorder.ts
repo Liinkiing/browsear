@@ -8,6 +8,8 @@ import {
 import { Song } from '~/@types/api/acrcloud'
 import SpotifyOEmbedClient from '~/services/client/SpotifyOEmbedClient'
 
+const MAX_MATCHES_ENTRY = 20
+
 export class AudioRecorder {
   private currentStream: MediaStream | null = null
   private recorder: MediaRecorder | null = null
@@ -74,7 +76,7 @@ export class AudioRecorder {
       const entry = this.buildLocalMatch(match, thumbnail)
       StorageHelper.get<SongSerializedState>(SONG_STORAGE_KEY).then(state => {
         StorageHelper.set<SongSerializedState>(SONG_STORAGE_KEY, {
-          history: [entry, ...state.history]
+          history: [entry, ...state.history.slice(0, MAX_MATCHES_ENTRY)]
         }).then(() => {
           if (chrome.extension.getViews({ type: 'popup' }).length === 0) {
             window.unreadMatches++

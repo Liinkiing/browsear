@@ -9,7 +9,7 @@ interface SerializedState {
 const STORAGE_KEY = 'app-store'
 
 export class AppStore {
-  @observable public theme = AppTheme.Light
+  @observable public theme = AppTheme.Dark
 
   @observable public hasUnreadMatches =
     chrome.extension.getBackgroundPage()!.unreadMatches > 0

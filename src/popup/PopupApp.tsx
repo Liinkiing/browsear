@@ -51,6 +51,15 @@ const PopupApp: React.FC<Props> = () => {
       clearBadge()
     }, SHOW_UNREAD_TIMEOUT)
   }, [])
+  useEffect(() => {
+    window.onblur = () => {
+      clearBadge()
+    }
+
+    return () => {
+      window.onblur = null
+    }
+  }, [])
 
   return (
     <>
