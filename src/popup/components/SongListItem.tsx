@@ -5,8 +5,10 @@ import { LocalSong } from '~popup/stores/SongStore'
 import { FaSpotify, FaYoutube } from 'react-icons/fa'
 import { darken } from 'polished'
 import { theme } from '~styles/themes'
+
 interface Props {
   readonly song: LocalSong
+  readonly onDelete?: (song: LocalSong) => void
 }
 
 const SongListItemInner = styled.li`
@@ -63,10 +65,10 @@ const SongListItemActions = styled.div`
   }
 `
 
-const SongListItem: React.FC<Props> = ({ song }) => {
+const SongListItem: React.FC<Props> = ({ song, onDelete }) => {
   return (
     <SongListItemInner>
-      <SongThumbnailImage song={song} />
+      <SongThumbnailImage song={song} {...(onDelete ? { onDelete } : {})} />
       <SongListItemContent>
         <h2>{song.title}</h2>
         <h3>{song.artist}</h3>

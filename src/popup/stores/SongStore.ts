@@ -47,6 +47,10 @@ export class SongStore {
     StorageHelper.clear(SONG_STORAGE_KEY).then(this.populateFromStorage)
   }
 
+  @action public removeSong = (song: LocalSong): void => {
+    this.history.remove(song)
+  }
+
   @action public requestRecording = (): void => {
     chrome.runtime.sendMessage({ type: 'INIT_RECORDING' })
     this.recording = true

@@ -19,13 +19,17 @@ const SongListInner = styled.ul<{ hasUnreadMatches: boolean }>`
 
 const SongList: React.FC<Props> = () => {
   const {
-    song: { history },
+    song: { history, removeSong },
     app: { hasUnreadMatches }
   } = useStores()
   return (
     <SongListInner hasUnreadMatches={hasUnreadMatches}>
-      {history.map((song, i) => (
-        <SongListItem key={`${i} - ${song.acr_id}`} song={song} />
+      {history.map(song => (
+        <SongListItem
+          onDelete={removeSong}
+          key={`${song.acr_id}${song.requestedAt}`}
+          song={song}
+        />
       ))}
     </SongListInner>
   )
