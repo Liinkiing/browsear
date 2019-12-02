@@ -1,6 +1,6 @@
-import path from 'path';
-import webpack from 'webpack';
-import {TsconfigPathsPlugin} from 'tsconfig-paths-webpack-plugin'
+import path from 'path'
+import webpack from 'webpack'
+import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -16,24 +16,24 @@ const config: webpack.Configuration = {
   },
   output: {
     path: build,
-    filename: '[name].js',
+    filename: '[name].js'
   },
   module: {
     rules: [
       {
         test: /\.(eot|svg|ttf|woff|woff2|otf|png|jpg|jpeg)$/,
-        loader: 'file-loader',
+        loader: 'file-loader'
       },
       {
         test: /\.tsx?$/,
         use: ['babel-loader', 'eslint-loader'],
         exclude: /node_modules/
-      },
+      }
     ]
   },
   resolve: {
     plugins: [new TsconfigPathsPlugin()],
-    extensions: ['.ts', '.tsx', '.js', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.json']
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
@@ -43,22 +43,22 @@ const config: webpack.Configuration = {
       template: path.join(__dirname, 'popup.html'),
       inject: 'body',
       filename: 'popup.html',
-      title: 'Musicalapp',
-      chunks: ['popup'],
+      title: "Brows'ear",
+      chunks: ['popup']
     }),
     new CopyWebpackPlugin([
       {
         from: path.join(src, 'assets'),
         to: path.join(build, 'assets'),
-        test: /\.(jpg|jpeg|png|gif|svg)?$/,
+        test: /\.(jpg|jpeg|png|gif|svg)?$/
       },
       {
         from: path.join(path.resolve(src, '..'), 'manifest.json'),
         to: path.join(build, 'manifest.json'),
-        toType: 'file',
+        toType: 'file'
       }
     ])
   ]
-};
+}
 
-export default config;
+export default config

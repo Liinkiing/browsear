@@ -1,6 +1,7 @@
 .env
 
 /build
+build.zip
 /node_modules
 /.idea
 
