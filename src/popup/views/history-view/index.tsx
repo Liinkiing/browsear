@@ -7,6 +7,7 @@ import {
   HistoryHeader,
   HistoryViewInner
 } from './styled'
+import SongList from '~popup/components/SongList'
 
 interface Props {
   readonly onViewClose?: () => void
@@ -42,7 +43,7 @@ const HistoryView: React.FC<Props> = ({ isVisible, onViewClose }) => {
             <h1>History</h1>
           </HistoryHeader>
           <HistoryContent>
-            <p>I am the content</p>
+            <SongList />
           </HistoryContent>
         </HistoryViewInner>
       )}

@@ -11,6 +11,11 @@ declare module 'styled-components' {
       background: string
       text: string
       secondaryText: string
+      notifications: {
+        info: string
+        success: string
+        error: string
+      }
     }
   }
 }

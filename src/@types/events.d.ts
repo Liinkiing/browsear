@@ -1,9 +1,10 @@
-import { Song } from '~/@types/api'
+import { Song } from '~/@types/api/acrcloud'
 
 export type RuntimeMessage =
   | { type: 'INIT_RECORDING' }
   | { type: 'STOP_RECORDING' }
   | { type: 'MATCH_FOUND'; payload: { match: Song } }
+  | { type: 'NO_MATCH_FOUND' }
 
 declare global {
   // eslint-disable-next-line no-redeclare

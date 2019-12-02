@@ -1,6 +1,12 @@
 import ACRCloudClient from '~/services/client/ACRCloudClient'
 import StorageHelper from '~/services/StorageHelper'
-import { SongSerializedState, SONG_STORAGE_KEY } from '~popup/stores/SongStore'
+import {
+  SongSerializedState,
+  SONG_STORAGE_KEY,
+  LocalSong
+} from '~popup/stores/SongStore'
+import { Song } from '~/@types/api/acrcloud'
+import SpotifyOEmbedClient from '~/services/client/SpotifyOEmbedClient'
 
 export class AudioRecorder {
   private currentStream: MediaStream | null = null
@@ -55,23 +61,44 @@ export class AudioRecorder {
       type: 'STOP_RECORDING'
     })
     const response = await ACRCloudClient.identify(sample)
+
     const match = response.data
       ? response.data.length > 0
-        ? { ...response.data[0], requestedAt: Date.now() }
+        ? response.data[0]
         : null
       : null
     if (match) {
+      const thumbnail = match.spotify_id
+        ? (await SpotifyOEmbedClient.oembed(match.spotify_id)).thumbnail_url
+        : null
+      const entry = this.buildLocalMatch(match, thumbnail)
       StorageHelper.get<SongSerializedState>(SONG_STORAGE_KEY).then(state => {
         StorageHelper.set<SongSerializedState>(SONG_STORAGE_KEY, {
-          history: [match, ...state.history]
+          history: [entry, ...state.history]
         }).then(() => {
           chrome.runtime.sendMessage({
-            type: 'MATCH_FOUND'
+            type: 'MATCH_FOUND',
+            payload: {
+              match: entry
+            }
           })
         })
       })
+    } else {
+      chrome.runtime.sendMessage({
+        type: 'NO_MATCH_FOUND'
+      })
     }
   }
+
+  private buildLocalMatch = (
+    match: Song,
+    thumbnail: string | null = null
+  ): LocalSong => ({
+    ...match,
+    requestedAt: Date.now(),
+    thumbnail
+  })
 }
 
 declare global {

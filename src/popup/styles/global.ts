@@ -40,4 +40,20 @@ export default createGlobalStyle`
       opacity: 1;
     }
   }
+
+  #notifications {
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    z-index: 10000;
+    align-items: center;
+    display: none;
+    &.visible {
+      display: flex;
+    }
+}
 `

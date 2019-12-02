@@ -1,8 +1,8 @@
 import { action, autorun, computed, observable } from 'mobx'
-import { Song } from '~/@types/api'
+import { Song } from '~/@types/api/acrcloud'
 import StorageHelper from '~/services/StorageHelper'
 
-type LocalSong = Song & { requestedAt: number }
+export type LocalSong = Song & { requestedAt: number; thumbnail: string | null }
 
 export interface SongSerializedState {
   readonly history: LocalSong[]

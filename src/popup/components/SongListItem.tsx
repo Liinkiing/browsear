@@ -1,19 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Song } from '~/@types/api'
+import SongThumbnailImage from '~popup/components/SongThumbnailImage'
+import { LocalSong } from '~popup/stores/SongStore'
 
 interface Props {
-  readonly song: Song
+  readonly song: LocalSong
 }
 
-const SongListItemInner = styled.div`
-  
+const SongListItemInner = styled.li`
+  display: flex;
 `
 
 const SongListItem: React.FC<Props> = ({ song }) => {
-
   return (
     <SongListItemInner>
+      <SongThumbnailImage song={song} />
       <h1>{song.title}</h1>
     </SongListItemInner>
   )

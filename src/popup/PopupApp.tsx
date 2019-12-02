@@ -10,6 +10,10 @@ import AppButton from '~popup/components/ui/AppButton'
 import { FiAirplay, FiList } from 'react-icons/fi'
 import AppToolbar from '~popup/components/AppToolbar'
 import HistoryView from '~popup/views/history-view'
+import useChromeOnMessage from '~popup/hooks/useChromeOnMessage'
+import NotificationsContainer, {
+  notify
+} from '~popup/components/ui/notifications/NotificationsContainer'
 
 interface Props {}
 
@@ -22,10 +26,28 @@ const PopupApp: React.FC<Props> = () => {
     recording ? stopRecording() : requestRecording()
   }, [recording])
   const [showHistory, setShowHistory] = useState(false)
+  useChromeOnMessage(
+    'MATCH_FOUND',
+    ({
+      payload: {
+        match: { title, artist }
+      }
+    }) => {
+      notify({
+        content: `Successfully found "${title}" by "${artist}"`,
+        type: 'success'
+      })
+      setShowHistory(true)
+    }
+  )
+  useChromeOnMessage('NO_MATCH_FOUND', () => {
+    notify({ content: 'No match found', type: 'error' })
+  })
 
   return (
     <>
       <ThemeProvider theme={theme === AppTheme.Dark ? dark : light}>
+        <NotificationsContainer />
         <GlobalStyle />
         <PopupAppInner>
           <ToggleThemeButton onClick={toggleTheme}>
