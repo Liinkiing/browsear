@@ -27,6 +27,9 @@ export class AudioRecorder {
       },
       stream => {
         if (stream && stream.getAudioTracks().length > 0) {
+          chrome.browserAction.setBadgeText({
+            text: 'rec'
+          })
           this.currentStream = stream
           const audio = new Audio()
           audio.srcObject = stream
