@@ -8,7 +8,6 @@ const useChromeOnMessage = (
 ): void => {
   useEffect(() => {
     const handler = (m: RuntimeMessage): void => {
-      console.log(m, 'FROM HOOKS')
       if (type === m.type) {
         callback(m)
       }

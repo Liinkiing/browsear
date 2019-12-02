@@ -3,9 +3,7 @@ import { AudioRecorder } from '~/services/AudioRecorder'
 window.recorder = new AudioRecorder()
 window.unreadMatches = 0
 
-chrome.runtime.onInstalled.addListener(() => {
-  console.log('app was installed')
-})
+chrome.runtime.onInstalled.addListener(() => {})
 
 chrome.commands.onCommand.addListener(command => {
   switch (command) {
