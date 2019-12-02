@@ -50,4 +50,5 @@ a song will be.
 
 By default, use `Ctrl+Shift+X` (or `Command+Shift+X` on mac) to start the recognition process
 in background, without opening the popup. A small badge will indicate the new
-recognized sounds. The shortcut can be freely re-assigned in your browser shortcuts preference panel.
+recognized sounds. The shortcut can be freely re-assigned in your browser shortcuts preference panel. You can use it
+to toggle the recognition procession (so it can start / stop the recording)
