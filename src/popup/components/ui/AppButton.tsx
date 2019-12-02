@@ -3,7 +3,9 @@ import styled from 'styled-components'
 import { theme } from '~styles/themes'
 import { lighten } from 'polished'
 
-interface Props extends React.HTMLAttributes<HTMLButtonElement> {}
+interface Props extends React.HTMLAttributes<HTMLButtonElement> {
+  readonly disabled?: boolean
+}
 
 const AppButtonInner = styled.button`
   background: ${props => theme(props).colors.primary};
@@ -19,6 +21,10 @@ const AppButtonInner = styled.button`
     background: ${props => lighten(0.1, theme(props).colors.primary)};
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.35);
     cursor: pointer;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    filter: grayscale(100%);
   }
 `
 

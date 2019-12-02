@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, Variants } from 'framer-motion'
-import { FiX } from 'react-icons/fi'
+import { FiX, FiTrash2 } from 'react-icons/fi'
 import {
+  ClearButton,
   CloseButton,
   HistoryContent,
   HistoryHeader,
   HistoryViewInner
 } from './styled'
 import SongList from '~popup/components/SongList'
+import useSongStore from '~popup/hooks/useSongStore'
+import { observer } from 'mobx-react-lite'
+import { notify } from '~popup/components/ui/notifications/NotificationsContainer'
 
 interface Props {
   readonly onViewClose?: () => void
@@ -28,6 +32,7 @@ const variants: Variants = {
 }
 
 const HistoryView: React.FC<Props> = ({ isVisible, onViewClose }) => {
+  const { clear, matchesCount } = useSongStore()
   const scrollRef = useRef<HTMLDivElement>(null)
   const [y, setY] = useState(0)
   useEffect(() => {
@@ -59,6 +64,17 @@ const HistoryView: React.FC<Props> = ({ isVisible, onViewClose }) => {
             <CloseButton {...(onViewClose ? { onClick: onViewClose } : {})}>
               <FiX />
             </CloseButton>
+            <ClearButton
+              onClick={() => {
+                clear()
+                notify({
+                  type: 'success',
+                  content: 'Successfully cleared history'
+                })
+              }}
+              disabled={matchesCount === 0}>
+              <FiTrash2 />
+            </ClearButton>
             <h1>History</h1>
           </HistoryHeader>
           <HistoryContent ref={scrollRef}>
@@ -70,4 +86,4 @@ const HistoryView: React.FC<Props> = ({ isVisible, onViewClose }) => {
   )
 }
 
-export default HistoryView
+export default observer(HistoryView)

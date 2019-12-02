@@ -17,10 +17,12 @@ import NotificationsContainer, {
 
 interface Props {}
 
+const SHOW_UNREAD_TIMEOUT = 3000
+
 const PopupApp: React.FC<Props> = () => {
   const {
     song: { requestRecording, stopRecording, recording },
-    app: { toggleTheme, theme }
+    app: { clearBadge, toggleTheme, hasUnreadMatches, theme }
   } = useStores()
   const onClick = useCallback(() => {
     recording ? stopRecording() : requestRecording()
@@ -43,6 +45,12 @@ const PopupApp: React.FC<Props> = () => {
   useChromeOnMessage('NO_MATCH_FOUND', () => {
     notify({ content: 'No match found', type: 'error' })
   })
+  useEffect(() => {
+    setShowHistory(hasUnreadMatches)
+    setTimeout(() => {
+      clearBadge()
+    }, SHOW_UNREAD_TIMEOUT)
+  }, [])
 
   return (
     <>

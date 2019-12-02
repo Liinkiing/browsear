@@ -37,7 +37,13 @@ export class SongStore {
     }
   }
 
+  @computed
+  public get matchesCount(): number {
+    return this.history.length
+  }
+
   @action public clear = (): void => {
+    this.history.replace([])
     StorageHelper.clear(SONG_STORAGE_KEY).then(this.populateFromStorage)
   }
 

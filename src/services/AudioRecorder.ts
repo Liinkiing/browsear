@@ -1,9 +1,9 @@
 import ACRCloudClient from '~/services/client/ACRCloudClient'
 import StorageHelper from '~/services/StorageHelper'
 import {
-  SongSerializedState,
+  LocalSong,
   SONG_STORAGE_KEY,
-  LocalSong
+  SongSerializedState
 } from '~popup/stores/SongStore'
 import { Song } from '~/@types/api/acrcloud'
 import SpotifyOEmbedClient from '~/services/client/SpotifyOEmbedClient'
@@ -76,6 +76,12 @@ export class AudioRecorder {
         StorageHelper.set<SongSerializedState>(SONG_STORAGE_KEY, {
           history: [entry, ...state.history]
         }).then(() => {
+          if (chrome.extension.getViews({ type: 'popup' }).length === 0) {
+            window.unreadMatches++
+            chrome.browserAction.setBadgeText({
+              text: window.unreadMatches.toString()
+            })
+          }
           chrome.runtime.sendMessage({
             type: 'MATCH_FOUND',
             payload: {
@@ -104,5 +110,6 @@ export class AudioRecorder {
 declare global {
   interface Window {
     recorder: AudioRecorder
+    unreadMatches: number
   }
 }

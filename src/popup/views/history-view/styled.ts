@@ -16,6 +16,12 @@ export const HistoryViewInner = styled(motion.div)`
 
 export const CloseButton = styled(AppButton)``
 
+export const ClearButton = styled(AppButton)`
+  position: fixed;
+  right: 80px;
+  top: 20px;
+`
+
 export const HistoryHeader = styled.div<{ hasScrolled: boolean }>`
   align-items: center;
   display: flex;

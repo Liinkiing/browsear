@@ -11,6 +11,9 @@ const STORAGE_KEY = 'app-store'
 export class AppStore {
   @observable public theme = AppTheme.Light
 
+  @observable public hasUnreadMatches =
+    chrome.extension.getBackgroundPage()!.unreadMatches > 0
+
   constructor() {
     StorageHelper.get<SerializedState>(STORAGE_KEY).then(state => {
       this.populate(state)
@@ -18,6 +21,14 @@ export class AppStore {
     autorun(() => {
       StorageHelper.set(STORAGE_KEY, this.serialized)
     })
+  }
+
+  public clearBadge = (): void => {
+    chrome.extension.getBackgroundPage()!.unreadMatches = 0
+    chrome.browserAction.setBadgeText({
+      text: ''
+    })
+    this.hasUnreadMatches = false
   }
 
   @action public toggleTheme = (): void => {

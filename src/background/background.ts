@@ -1,6 +1,7 @@
 import { AudioRecorder } from '~/services/AudioRecorder'
 
 window.recorder = new AudioRecorder()
+window.unreadMatches = 0
 
 chrome.runtime.onInstalled.addListener(() => {
   console.log('app was installed')
