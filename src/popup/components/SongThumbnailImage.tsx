@@ -10,10 +10,7 @@ interface Props {
 const SIZE = '120px'
 
 const SongThumbnailImageInner = styled.img`
-  height: ${SIZE};
-  max-height: ${SIZE};
   max-width: ${SIZE};
-  min-height: ${SIZE};
   min-width: ${SIZE};
   object-fit: cover;
   width: ${SIZE};

@@ -14,7 +14,7 @@ const SearchButton: React.FC<Props> = ({ recording, ...props }) => {
       initial={recording ? 'recording' : 'initial'}
       animate={recording ? 'recording' : 'initial'}
       variants={variants.SearchButtonInner}>
-      {recording ? 'Stop' : 'Request'} Recording
+      {recording ? 'Stop' : 'Record'}
     </SearchButtonInner>
   )
 }

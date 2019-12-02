@@ -25,7 +25,7 @@ const PopupApp: React.FC<Props> = () => {
   const onClick = useCallback(() => {
     recording ? stopRecording() : requestRecording()
   }, [recording])
-  const [showHistory, setShowHistory] = useState(true)
+  const [showHistory, setShowHistory] = useState(false)
   useChromeOnMessage(
     'MATCH_FOUND',
     ({
