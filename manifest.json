@@ -33,7 +33,7 @@
   },
   "browser_action": {
     "default_title": "Musicalapp",
-    "default_icon": "assets/icon-48.png",
+    "default_icon": "assets/icon-128-dark.png",
     "default_popup": "popup.html"
   },
   "content_scripts": [

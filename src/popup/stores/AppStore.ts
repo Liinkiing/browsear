@@ -18,6 +18,11 @@ export class AppStore {
     autorun(() => {
       StorageHelper.set(STORAGE_KEY, this.serialized)
     })
+    autorun(() => {
+      chrome.browserAction.setIcon({
+        path: `assets/icon-128-${this.theme.toLowerCase()}.png`
+      })
+    })
   }
 
   public clearBadge = (): void => {
