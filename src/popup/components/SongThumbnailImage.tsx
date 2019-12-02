@@ -7,7 +7,7 @@ interface Props {
   readonly song: LocalSong
 }
 
-const SIZE = '40px'
+const SIZE = '120px'
 
 const SongThumbnailImageInner = styled.img`
   height: ${SIZE};

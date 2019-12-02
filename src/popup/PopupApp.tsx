@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import GlobalStyle from '~styles/global'
 import { AppTheme } from '~/enums'
@@ -19,13 +19,13 @@ interface Props {}
 
 const PopupApp: React.FC<Props> = () => {
   const {
-    song: { requestRecording, stopRecording, recording, clear },
+    song: { requestRecording, stopRecording, recording },
     app: { toggleTheme, theme }
   } = useStores()
   const onClick = useCallback(() => {
     recording ? stopRecording() : requestRecording()
   }, [recording])
-  const [showHistory, setShowHistory] = useState(false)
+  const [showHistory, setShowHistory] = useState(true)
   useChromeOnMessage(
     'MATCH_FOUND',
     ({
@@ -53,9 +53,6 @@ const PopupApp: React.FC<Props> = () => {
           <ToggleThemeButton onClick={toggleTheme}>
             <FiAirplay />
           </ToggleThemeButton>
-          {/*<button onClick={onClick}>{recording ? 'Stop' : 'Request'} Recording</button>*/}
-          {/*<button onClick={clear}>Clear</button>*/}
-          {/*<SongList />*/}
           <HistoryView
             isVisible={showHistory}
             onViewClose={() => {
@@ -94,9 +91,10 @@ const MainAppToolbar = styled(AppToolbar)`
 `
 
 const ToggleThemeButton = styled(AppButton)`
-  left: 20px;
   position: fixed;
+  right: 20px;
   top: 20px;
+  z-index: 1000;
 `
 
 export default observer(PopupApp)
