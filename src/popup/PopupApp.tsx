@@ -21,8 +21,14 @@ const SHOW_UNREAD_TIMEOUT = 3000
 
 const PopupApp: React.FC<Props> = () => {
   const {
-    song: { requestRecording, stopRecording, recording },
-    app: { clearBadge, toggleTheme, hasUnreadMatches, theme }
+    song: {
+      requestRecording,
+      stopRecording,
+      markUnreadAsRead,
+      recording,
+      hasUnreadMatches
+    },
+    app: { clearBadge, toggleTheme, theme }
   } = useStores()
   const onClick = useCallback(() => {
     recording ? stopRecording() : requestRecording()
@@ -42,24 +48,19 @@ const PopupApp: React.FC<Props> = () => {
       setShowHistory(true)
     }
   )
+  console.log('HASUNREADMATCHES', hasUnreadMatches)
   useChromeOnMessage('NO_MATCH_FOUND', () => {
     notify({ content: 'No match found', type: 'error' })
   })
   useEffect(() => {
-    setShowHistory(hasUnreadMatches)
-    setTimeout(() => {
-      clearBadge()
-    }, SHOW_UNREAD_TIMEOUT)
-  }, [])
-  useEffect(() => {
-    window.onblur = () => {
-      clearBadge()
+    if (hasUnreadMatches) {
+      setShowHistory(hasUnreadMatches)
+      setTimeout(() => {
+        markUnreadAsRead()
+        clearBadge()
+      }, SHOW_UNREAD_TIMEOUT)
     }
-
-    return () => {
-      window.onblur = null
-    }
-  }, [])
+  }, [hasUnreadMatches])
 
   return (
     <>

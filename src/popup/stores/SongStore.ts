@@ -2,7 +2,11 @@ import { action, autorun, computed, observable } from 'mobx'
 import { Song } from '~/@types/api/acrcloud'
 import StorageHelper from '~/services/StorageHelper'
 
-export type LocalSong = Song & { requestedAt: number; thumbnail: string | null }
+export type LocalSong = Song & {
+  requestedAt: number
+  thumbnail: string | null
+  unread: boolean
+}
 
 export interface SongSerializedState {
   readonly history: LocalSong[]
@@ -42,9 +46,25 @@ export class SongStore {
     return this.history.length
   }
 
+  @computed
+  public get hasUnreadMatches(): boolean {
+    return this.history.filter(match => match.unread).length > 0
+  }
+
+  @computed
+  public get unreadMatchesCount(): number {
+    return this.history.filter(match => match.unread).length
+  }
+
   @action public clear = (): void => {
     this.history.replace([])
     StorageHelper.clear(SONG_STORAGE_KEY).then(this.populateFromStorage)
+  }
+
+  @action public markUnreadAsRead = (): void => {
+    this.history.replace(
+      this.history.map(entry => ({ ...entry, unread: false }))
+    )
   }
 
   @action public removeSong = (song: LocalSong): void => {

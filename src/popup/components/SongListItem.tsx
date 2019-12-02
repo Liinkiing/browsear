@@ -1,17 +1,18 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import SongThumbnailImage from '~popup/components/SongThumbnailImage'
 import { LocalSong } from '~popup/stores/SongStore'
 import { FaSpotify, FaYoutube } from 'react-icons/fa'
 import { darken } from 'polished'
 import { theme } from '~styles/themes'
+import { blink } from '~styles/keyframes'
 
 interface Props {
   readonly song: LocalSong
   readonly onDelete?: (song: LocalSong) => void
 }
 
-const SongListItemInner = styled.li`
+const SongListItemInner = styled.li<{ isUnread: boolean }>`
   display: flex;
   transition: background 0.15s;
   &:hover {
@@ -29,6 +30,11 @@ const SongListItemInner = styled.li`
     margin-top: 5px;
     opacity: 0.7;
   }
+  ${props =>
+    props.isUnread &&
+    css`
+      animation: ${blink} 1s infinite alternate;
+    `}
 `
 
 const SpotifyIcon = styled(FaSpotify)`
@@ -67,7 +73,7 @@ const SongListItemActions = styled.div`
 
 const SongListItem: React.FC<Props> = ({ song, onDelete }) => {
   return (
-    <SongListItemInner>
+    <SongListItemInner isUnread={song.unread}>
       <SongThumbnailImage song={song} {...(onDelete ? { onDelete } : {})} />
       <SongListItemContent>
         <h2>{song.title}</h2>

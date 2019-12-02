@@ -112,6 +112,7 @@ export class AudioRecorder {
     thumbnail: string | null = null
   ): LocalSong => ({
     ...match,
+    unread: true,
     requestedAt: Date.now(),
     thumbnail
   })

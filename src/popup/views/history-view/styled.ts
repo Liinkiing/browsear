@@ -39,5 +39,5 @@ export const HistoryHeader = styled.div<{ hasScrolled: boolean }>`
 `
 
 export const HistoryContent = styled.div`
-  overflow-y: scroll;
+  overflow-y: auto;
 `
