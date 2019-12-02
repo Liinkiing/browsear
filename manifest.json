@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "description": "A Chrome extension made to find song a breeze!",
   "icons": {
-    "128": "assets/icon-128.png"
+    "48": "assets/icon-48-dark.png",
+    "128": "assets/icon-128-dark.png"
   },
   "web_accessible_resources": ["assets/*", "popup/*"],
   "content_security_policy": "connect-src 'self' ws://localhost:* https://*.acrcloud.com https://*.spotify.com; script-src 'self' 'unsafe-eval'; object-src 'self'",
