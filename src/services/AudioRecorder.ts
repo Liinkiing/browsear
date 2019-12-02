@@ -20,29 +20,31 @@ export class AudioRecorder {
   }
 
   public record = (duration = 5000): void => {
-    chrome.tabCapture.capture(
-      {
-        audio: true,
-        video: false
-      },
-      stream => {
-        if (stream && stream.getAudioTracks().length > 0) {
-          chrome.browserAction.setBadgeText({
-            text: 'rec'
-          })
-          this.currentStream = stream
-          const audio = new Audio()
-          audio.srcObject = stream
-          audio.play()
-          this.recorder = new MediaRecorder(stream)
-          this.recorder.start()
-          this.timeout = (setTimeout(() => {
-            this.stop()
-          }, duration) as unknown) as number
-          this.recorder.ondataavailable = this.onRecordFinish
+    if (this.recorder?.state !== 'recording') {
+      chrome.tabCapture.capture(
+        {
+          audio: true,
+          video: false
+        },
+        stream => {
+          if (stream && stream.getAudioTracks().length > 0) {
+            this.currentStream = stream
+            const audio = new Audio()
+            audio.srcObject = stream
+            audio.play()
+            this.recorder = new MediaRecorder(stream)
+            this.recorder.start()
+            chrome.browserAction.setBadgeText({
+              text: 'rec'
+            })
+            this.timeout = (setTimeout(() => {
+              this.stop()
+            }, duration) as unknown) as number
+            this.recorder.ondataavailable = this.onRecordFinish
+          }
         }
-      }
-    )
+      )
+    }
   }
 
   public stop = (): void => {
@@ -64,6 +66,9 @@ export class AudioRecorder {
   private onRecordFinish = async (sample: BlobEvent) => {
     chrome.runtime.sendMessage({
       type: 'STOP_RECORDING'
+    })
+    chrome.browserAction.setBadgeText({
+      text: ''
     })
     const response = await ACRCloudClient.identify(sample)
 

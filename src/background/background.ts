@@ -9,8 +9,12 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.commands.onCommand.addListener(command => {
   switch (command) {
-    case 'start-recording':
-      window.recorder.record()
+    case 'toggle-recording':
+      if (window.recorder.isRecording) {
+        window.recorder.stop()
+      } else {
+        window.recorder.record()
+      }
       break
   }
 })

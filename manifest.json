@@ -19,12 +19,12 @@
     "*://*/*"
   ],
   "commands": {
-    "start-recording": {
+    "toggle-recording": {
       "suggested_key": {
         "default": "Ctrl+Shift+X",
         "mac": "Command+Shift+X"
       },
-      "description": "Starts recording a song for recognition"
+      "description": "Toggle recording a song for recognition"
     }
   },
   "manifest_version": 2,

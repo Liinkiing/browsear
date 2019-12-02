@@ -6,7 +6,7 @@ export type RuntimeMessage =
   | { type: 'MATCH_FOUND'; payload: { match: Song } }
   | { type: 'NO_MATCH_FOUND' }
 
-export type CommandMessage = 'start-recording'
+export type CommandMessage = 'toggle-recording'
 
 declare global {
   // eslint-disable-next-line no-redeclare
