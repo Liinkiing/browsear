@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite'
 import useStores from '~popup/hooks/useStores'
 import SearchButton from '~popup/components/search-button'
 import AppButton from '~popup/components/ui/AppButton'
-import { FiAirplay, FiList } from 'react-icons/fi'
+import { FiSun, FiMoon, FiList } from 'react-icons/fi'
 import AppToolbar from '~popup/components/AppToolbar'
 import HistoryView from '~popup/views/history-view'
 import useChromeOnMessage from '~popup/hooks/useChromeOnMessage'
@@ -48,7 +48,6 @@ const PopupApp: React.FC<Props> = () => {
       setShowHistory(true)
     }
   )
-  console.log('HASUNREADMATCHES', hasUnreadMatches)
   useChromeOnMessage('NO_MATCH_FOUND', () => {
     notify({ content: 'No match found', type: 'error' })
   })
@@ -69,7 +68,7 @@ const PopupApp: React.FC<Props> = () => {
         <GlobalStyle />
         <PopupAppInner>
           <ToggleThemeButton onClick={toggleTheme}>
-            <FiAirplay />
+            {theme === AppTheme.Light ? <FiMoon /> : <FiSun />}
           </ToggleThemeButton>
           <HistoryView
             isVisible={showHistory}

@@ -10,6 +10,7 @@ interface Props extends HTMLMotionProps<'div'> {
 const SearchButton: React.FC<Props> = ({ recording, ...props }) => {
   return (
     <SearchButtonInner
+      recording={recording}
       {...props}
       initial={recording ? 'recording' : 'initial'}
       animate={recording ? 'recording' : 'initial'}
