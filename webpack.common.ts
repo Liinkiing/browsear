@@ -4,6 +4,7 @@ import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import HtmlWebpackPlugin = require('html-webpack-plugin')
+import CspHtmlWebpackPlugin = require('csp-html-webpack-plugin')
 
 export const src = path.join(__dirname, 'src')
 export const build = path.join(__dirname, 'build')
@@ -46,6 +47,7 @@ const config: webpack.Configuration = {
       title: "Brows'ear",
       chunks: ['popup']
     }),
+    new CspHtmlWebpackPlugin(),
     new CopyWebpackPlugin([
       {
         from: path.join(src, 'assets'),
