@@ -5,9 +5,8 @@ import { LocalSong } from '~popup/stores/SongStore'
 import { FaSpotify, FaYoutube } from 'react-icons/fa'
 import { lighten } from 'polished'
 import { theme } from '~styles/themes'
-import { blink } from '~styles/keyframes'
+import { highlight } from '~styles/keyframes'
 import { default as DIcon } from '~popup/components/ui/icons/DeezerIcon'
-import useAppStore from '~popup/hooks/useAppStore'
 import useStores from '~popup/hooks/useStores'
 
 interface Props {
@@ -40,7 +39,7 @@ const SongListItemInner = styled.div<{ isUnread: boolean }>`
   ${props =>
     props.isUnread &&
     css`
-      animation: ${blink} 1s infinite alternate;
+      animation: ${highlight} 0.7s infinite alternate;
     `}
 `
 

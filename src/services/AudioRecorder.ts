@@ -91,6 +91,14 @@ export class AudioRecorder {
             chrome.browserAction.setBadgeText({
               text: window.unreadMatches.toString()
             })
+            chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+              if (tabs.length > 0) {
+                chrome.tabs.sendMessage(tabs[0].id!, {
+                  type: 'ON_BG_RECORDING_STOP',
+                  payload: { match: entry }
+                })
+              }
+            })
           }
           chrome.runtime.sendMessage({
             type: 'MATCH_FOUND',
@@ -101,6 +109,16 @@ export class AudioRecorder {
         })
       })
     } else {
+      if (chrome.extension.getViews({ type: 'popup' }).length === 0) {
+        chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+          if (tabs.length > 0) {
+            chrome.tabs.sendMessage(tabs[0].id!, {
+              type: 'ON_BG_RECORDING_STOP',
+              payload: { match: null }
+            })
+          }
+        })
+      }
       chrome.runtime.sendMessage({
         type: 'NO_MATCH_FOUND'
       })

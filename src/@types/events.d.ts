@@ -1,6 +1,9 @@
 import { Song } from '~/@types/api/acrcloud'
+import { LocalSong } from '~popup/stores/SongStore'
 
 export type RuntimeMessage =
+  | { type: 'ON_BG_RECORDING_START' }
+  | { type: 'ON_BG_RECORDING_STOP'; payload: { match: LocalSong | null } }
   | { type: 'INIT_RECORDING' }
   | { type: 'STOP_RECORDING' }
   | { type: 'MATCH_FOUND'; payload: { match: Song } }

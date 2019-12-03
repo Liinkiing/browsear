@@ -20,6 +20,17 @@ export const blink = keyframes`
   }
 `
 
+export const highlight = keyframes`
+  from {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+`
+
 export const disappearFromUp = keyframes`
   from {
     transform: translateY(0);

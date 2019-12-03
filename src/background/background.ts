@@ -11,6 +11,13 @@ chrome.commands.onCommand.addListener(command => {
       if (window.recorder.isRecording) {
         window.recorder.stop()
       } else {
+        chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+          if (tabs.length > 0) {
+            chrome.tabs.sendMessage(tabs[0].id!, {
+              type: 'ON_BG_RECORDING_START'
+            })
+          }
+        })
         window.recorder.record()
       }
       break
