@@ -90,4 +90,8 @@ export class SongStore {
       this.populate(state)
     })
   }
+
+  public static getInitialState = (): SongSerializedState => ({
+    history: []
+  })
 }

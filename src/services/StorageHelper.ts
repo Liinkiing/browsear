@@ -1,10 +1,11 @@
 class StorageHelper {
   public get = <T>(key: string): Promise<T> => {
-    return new Promise<T>(resolve => {
+    return new Promise<T>((resolve, reject) => {
       chrome.storage.sync.get(key, data => {
         if (data[key]) {
           resolve(data[key])
         }
+        reject('Could not get data')
       })
     })
   }

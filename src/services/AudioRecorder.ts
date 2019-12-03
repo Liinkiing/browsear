@@ -37,6 +37,15 @@ export class AudioRecorder {
             chrome.browserAction.setBadgeText({
               text: 'rec'
             })
+            if (chrome.extension.getViews({ type: 'popup' }).length === 0) {
+              chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+                if (tabs.length > 0) {
+                  chrome.tabs.sendMessage(tabs[0].id!, {
+                    type: 'ON_BG_RECORDING_START'
+                  })
+                }
+              })
+            }
             this.timeout = (setTimeout(() => {
               this.stop()
             }, duration) as unknown) as number
@@ -60,9 +69,6 @@ export class AudioRecorder {
         audio.stop()
       })
       this.currentStream = null
-      chrome.runtime.sendMessage({
-        type: 'STOP_RECORDING'
-      })
     }
   }
 

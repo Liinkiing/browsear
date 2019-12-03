@@ -2,21 +2,21 @@ import { action, autorun, computed, observable } from 'mobx'
 import StorageHelper from '~/services/StorageHelper'
 import { AppTheme } from '~/enums'
 
-interface SerializedState {
+interface AppSerializedState {
   readonly theme: AppTheme
 }
 
-const STORAGE_KEY = 'app-store'
+export const APP_STORAGE_KEY = 'app-store'
 
 export class AppStore {
   @observable public theme = AppTheme.Dark
 
   constructor() {
-    StorageHelper.get<SerializedState>(STORAGE_KEY).then(state => {
+    StorageHelper.get<AppSerializedState>(APP_STORAGE_KEY).then(state => {
       this.populate(state)
     })
     autorun(() => {
-      StorageHelper.set(STORAGE_KEY, this.serialized)
+      StorageHelper.set(APP_STORAGE_KEY, this.serialized)
     })
     autorun(() => {
       chrome.browserAction.setIcon({
@@ -37,13 +37,17 @@ export class AppStore {
   }
 
   @computed
-  protected get serialized(): SerializedState {
+  protected get serialized(): AppSerializedState {
     return {
       theme: this.theme
     }
   }
 
-  protected populate(state: SerializedState): void {
+  protected populate(state: AppSerializedState): void {
     this.theme = state.theme
   }
+
+  public static getInitialState = (): AppSerializedState => ({
+    theme: AppTheme.Dark
+  })
 }
