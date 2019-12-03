@@ -5,8 +5,8 @@ import CopyWebpackPlugin from 'copy-webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const src = path.join(__dirname, 'src')
-const build = path.join(__dirname, 'build')
+export const src = path.join(__dirname, 'src')
+export const build = path.join(__dirname, 'build')
 
 const config: webpack.Configuration = {
   entry: {
@@ -51,11 +51,6 @@ const config: webpack.Configuration = {
         from: path.join(src, 'assets'),
         to: path.join(build, 'assets'),
         test: /\.(jpg|jpeg|png|gif|svg)?$/
-      },
-      {
-        from: path.join(path.resolve(src, '..'), 'manifest.json'),
-        to: path.join(build, 'manifest.json'),
-        toType: 'file'
       }
     ])
   ]

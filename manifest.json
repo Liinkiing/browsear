@@ -1,7 +1,7 @@
 {
   "name": "Brows'ear",
   "author": "Omar Jbara <omar.jbara2@gmail.com>",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "A Chrome extension made to find song a breeze!",
   "icons": {
     "48": "assets/icon-48-dark.png",
@@ -9,16 +9,7 @@
   },
   "web_accessible_resources": ["assets/*", "popup/*"],
   "content_security_policy": "connect-src 'self' ws://localhost:* https://*.acrcloud.com https://*.spotify.com; script-src 'self' 'unsafe-eval'; object-src 'self'",
-  "permissions": [
-    "activeTab",
-    "alarms",
-    "bookmarks",
-    "cookies",
-    "storage",
-    "tabs",
-    "tabCapture",
-    "*://*/*"
-  ],
+  "permissions": ["activeTab", "storage", "tabs", "tabCapture", "*://*/*"],
   "commands": {
     "toggle-recording": {
       "suggested_key": {
