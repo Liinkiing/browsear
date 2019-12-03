@@ -7,7 +7,6 @@ import { lighten } from 'polished'
 import { theme } from '~styles/themes'
 import { highlight } from '~styles/keyframes'
 import { default as DIcon } from '~popup/components/ui/icons/DeezerIcon'
-import useStores from '~popup/hooks/useStores'
 
 interface Props {
   readonly song: LocalSong
@@ -97,14 +96,6 @@ const SongListItemMetadata = styled.span`
 `
 
 const SongListItem: React.FC<Props> = ({ song, onDelete }) => {
-  const {
-    song: { markUnreadAsRead },
-    app: { clearBadge }
-  } = useStores()
-  const onIconClick = () => {
-    markUnreadAsRead()
-    clearBadge()
-  }
   const locale = useMemo(
     () => window.navigator.language?.split('-')[0] || 'fr',
     [window.navigator.language]
@@ -126,7 +117,6 @@ const SongListItem: React.FC<Props> = ({ song, onDelete }) => {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              onClick={onIconClick}
               href={`spotify:track:${song.spotify_id}`}>
               <SpotifyIcon />
             </a>
@@ -135,7 +125,6 @@ const SongListItem: React.FC<Props> = ({ song, onDelete }) => {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              onClick={onIconClick}
               href={`https://www.youtube.com/watch?v=${song.youtube_id}`}>
               <YoutubeIcon />
             </a>
@@ -144,7 +133,6 @@ const SongListItem: React.FC<Props> = ({ song, onDelete }) => {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              onClick={onIconClick}
               href={`https://www.deezer.com/${locale}/track/${song.deezer_id}`}>
               <DeezerIcon />
             </a>
