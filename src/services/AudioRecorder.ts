@@ -60,6 +60,9 @@ export class AudioRecorder {
         audio.stop()
       })
       this.currentStream = null
+      chrome.runtime.sendMessage({
+        type: 'STOP_RECORDING'
+      })
     }
   }
 
