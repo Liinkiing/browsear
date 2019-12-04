@@ -4,8 +4,8 @@
   "version": "1.2.1",
   "description": "A Chrome extension made to find song a breeze!",
   "icons": {
-    "48": "assets/icon-48-dark.png",
-    "128": "assets/icon-128-dark.png"
+    "48": "assets/icon-48-light.png",
+    "128": "assets/icon-128-light.png"
   },
   "web_accessible_resources": ["assets/*", "popup/*"],
   "content_security_policy": "connect-src 'self' ws://localhost:* https://*.acrcloud.com https://*.spotify.com; script-src 'self' 'unsafe-eval'; object-src 'self'",
@@ -25,7 +25,7 @@
   },
   "browser_action": {
     "default_title": "Brows'ear",
-    "default_icon": "assets/icon-128-dark.png",
+    "default_icon": "assets/icon-128-light.png",
     "default_popup": "popup.html"
   },
   "content_scripts": [
