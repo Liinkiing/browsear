@@ -33,12 +33,9 @@ $ yarn build
 3. Click on: "**Load unpacked**"
 4. Select the newly created folder "**build**" from the project folder
 
-### In Firefox web browser
+### Firefox and other browsers
 
-1. Go to: [**about:debugging**](about:debugging)
-2. Select: "**Enable add-on debugging**"
-3. Click on: "**Load Temporary Add-on…**"
-4. Open the newly created folder "**build**" from the project folder, and choose the "**manifest.json**" file
+Because I'm using the `tabsCapture` API to record sound from a tab, it is currently supported only in Chrome 😭
 
 ## Usage
 
