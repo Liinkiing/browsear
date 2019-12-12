@@ -15,8 +15,9 @@ Find your favorites song in a Shazam-like flavored experience
 
 ## Installation
 
-Because it is currently not approved in the **Chrome Web Store**, you can freely test it
-by building the extension and load the unpacked version (located in `build` folder)
+[Chrome Web Store](https://chrome.google.com/webstore/detail/browsear/gmfpfebmgkoplcpceddmhigogakflnak)
+
+Or you can freely test it by building the extension and load the unpacked version (located in `build` folder)
 
 ```bash
 $ yarn
