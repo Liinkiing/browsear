@@ -103,7 +103,9 @@ const PopupAppInner = styled.div`
 
 const MainAppToolbar = styled(AppToolbar)`
   bottom: 0;
+  left: 0;
   position: fixed;
+  right: 0;
   width: 100%;
 `
 

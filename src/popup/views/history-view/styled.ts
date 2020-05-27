@@ -6,11 +6,15 @@ import { customScrollbar } from '~styles/modules/mixins'
 
 export const HistoryViewInner = styled(motion.div)`
   background: ${props => theme(props).colors.secondary};
+  bottom: 0;
   color: ${props => theme(props).colors.secondaryText};
   display: flex;
   flex-direction: column;
   height: 100%;
+  left: 0;
   position: fixed;
+  right: 0;
+  top: 0;
   width: 100%;
   z-index: 10;
 `
