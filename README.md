@@ -36,7 +36,7 @@ $ yarn build
 
 ### Firefox and other browsers
 
-Because I'm using the `tabsCapture` API to record sound from a tab, it is currently supported only in Chrome 😭
+Because I'm using the `tabsCapture` API to record sound from a tab, it is currently supported only in Chromium based browsers 😭
 
 ## Usage
 
