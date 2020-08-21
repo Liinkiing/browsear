@@ -87,9 +87,15 @@ export class AudioRecorder {
         : null
       : null
     if (match) {
-      const thumbnail = match.spotify_id
-        ? (await SpotifyOEmbedClient.oembed(match.spotify_id)).thumbnail_url
-        : null
+      let thumbnail: string | null
+      try {
+        thumbnail = match.spotify_id
+          ? (await SpotifyOEmbedClient.oembed(match.spotify_id)).thumbnail_url
+          : null
+      } catch {
+        console.log('An error occured while fetching informations from Spotify')
+        thumbnail = null
+      }
       const entry = this.buildLocalMatch(match, thumbnail)
       StorageHelper.get<SongSerializedState>(SONG_STORAGE_KEY).then(state => {
         StorageHelper.set<SongSerializedState>(SONG_STORAGE_KEY, {
