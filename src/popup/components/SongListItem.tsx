@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import SongThumbnailImage from '~popup/components/SongThumbnailImage'
 import { LocalSong } from '~popup/stores/SongStore'
-import { FaSpotify, FaYoutube } from 'react-icons/fa'
+import { FaSpotify, FaYoutube, FaGoogle } from 'react-icons/fa'
 import { lighten } from 'polished'
 import { theme } from '~styles/themes'
 import { highlight } from '~styles/keyframes'
@@ -40,6 +40,14 @@ const SongListItemInner = styled.div<{ isUnread: boolean }>`
     css`
       animation: ${highlight} 0.7s infinite alternate;
     `}
+`
+
+const GoogleIcon = styled(FaGoogle).attrs({
+  className: 'service-icon'
+})`
+  &:hover {
+    color: #4285f4;
+  }
 `
 
 const SpotifyIcon = styled(FaSpotify).attrs({
@@ -113,6 +121,14 @@ const SongListItem: React.FC<Props> = ({ song, onDelete }) => {
             {requestedAt.toLocaleDateString()} -{' '}
             {requestedAt.toLocaleTimeString()}
           </SongListItemMetadata>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`https://www.google.com/search?q=${encodeURI(
+              `${song.title} ${song.artist}`
+            )}`}>
+            <GoogleIcon />
+          </a>
           {song.spotify_id && (
             <a
               target="_blank"
