@@ -1,6 +1,6 @@
 import { IdentifyRoot } from '~/@types/api/acrcloud'
 
-const BASE_URI = 'https://api.acrcloud.com/v1'
+const BASE_URI = 'https://extension.aha-music.com/v1'
 
 export default new (class ACRCloudClient {
   public identify = async (sample: BlobEvent): Promise<IdentifyRoot> =>
