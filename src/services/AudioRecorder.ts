@@ -7,6 +7,7 @@ import {
 } from '~popup/stores/SongStore'
 import { Song } from '~/@types/api/acrcloud'
 import SpotifyOEmbedClient from '~/services/client/SpotifyOEmbedClient'
+import ACRPageParser from '~/services/ACRPageParser'
 
 const MAX_MATCHES_ENTRY = 20
 
@@ -79,72 +80,94 @@ export class AudioRecorder {
     chrome.browserAction.setBadgeText({
       text: ''
     })
-    const response = await ACRCloudClient.identify(sample)
+    chrome.tabs.query({ active: true, currentWindow: true }, async tabs => {
+      if (tabs.length > 0) {
+        const url = tabs[0].url
+        if (!url) return
 
-    const match = response.data
-      ? response.data.length > 0
-        ? response.data[0]
-        : null
-      : null
-    if (match) {
-      let thumbnail: string | null
-      try {
-        thumbnail = match.spotify_id
-          ? (await SpotifyOEmbedClient.oembed(match.spotify_id)).thumbnail_url
+        const response = await ACRCloudClient.identify(sample, url)
+
+        const match = response.data
+          ? response.data.length > 0
+            ? response.data[0]
+            : null
           : null
-      } catch {
-        console.log('An error occured while fetching informations from Spotify')
-        thumbnail = null
-      }
-      const entry = this.buildLocalMatch(match, thumbnail)
-      StorageHelper.get<SongSerializedState>(SONG_STORAGE_KEY).then(state => {
-        StorageHelper.set<SongSerializedState>(SONG_STORAGE_KEY, {
-          history: [entry, ...state.history.slice(0, MAX_MATCHES_ENTRY)]
-        }).then(() => {
-          if (chrome.extension.getViews({ type: 'popup' }).length === 0) {
-            window.unreadMatches++
-            chrome.browserAction.setBadgeText({
-              text: window.unreadMatches.toString()
-            })
-            chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-              if (tabs.length > 0) {
-                chrome.tabs.sendMessage(tabs[0].id!, {
-                  type: 'ON_BG_RECORDING_STOP',
-                  payload: { match: entry }
-                })
-              }
-            })
-          }
-          chrome.runtime.sendMessage({
-            type: 'MATCH_FOUND',
-            payload: {
-              match: entry
+        if (match) {
+          const html = await (
+            await fetch(`https://www.aha-music.com/${match.acr_id}`)
+          ).text()
+          const parser = new ACRPageParser(html)
+          match.spotify_id = parser.getSpotifyId()
+          match.youtube_id = parser.getYoutubeId()
+          match.deezer_id = parser.getDeezerId()
+          let thumbnail: string | null = null
+          let title: string | null = null
+          try {
+            if (match.spotify_id) {
+              const response = await SpotifyOEmbedClient.oembed(
+                match.spotify_id
+              )
+              thumbnail = response.thumbnail_url
+              title = response.title
             }
-          })
-        })
-      })
-    } else {
-      if (chrome.extension.getViews({ type: 'popup' }).length === 0) {
-        chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-          if (tabs.length > 0) {
+          } catch {
+            console.log(
+              'An error occured while fetching informations from Spotify'
+            )
+            thumbnail = null
+            title = null
+          }
+          const entry = this.buildLocalMatch({ match, thumbnail, title })
+          StorageHelper.get<SongSerializedState>(SONG_STORAGE_KEY).then(
+            state => {
+              StorageHelper.set<SongSerializedState>(SONG_STORAGE_KEY, {
+                history: [entry, ...state.history.slice(0, MAX_MATCHES_ENTRY)]
+              }).then(() => {
+                if (chrome.extension.getViews({ type: 'popup' }).length === 0) {
+                  window.unreadMatches++
+                  chrome.browserAction.setBadgeText({
+                    text: window.unreadMatches.toString()
+                  })
+                  chrome.tabs.sendMessage(tabs[0].id!, {
+                    type: 'ON_BG_RECORDING_STOP',
+                    payload: { match: entry }
+                  })
+                }
+                chrome.runtime.sendMessage({
+                  type: 'MATCH_FOUND',
+                  payload: {
+                    match: entry
+                  }
+                })
+              })
+            }
+          )
+        } else {
+          if (chrome.extension.getViews({ type: 'popup' }).length === 0) {
             chrome.tabs.sendMessage(tabs[0].id!, {
               type: 'ON_BG_RECORDING_STOP',
               payload: { match: null }
             })
           }
-        })
+          chrome.runtime.sendMessage({
+            type: 'NO_MATCH_FOUND'
+          })
+        }
       }
-      chrome.runtime.sendMessage({
-        type: 'NO_MATCH_FOUND'
-      })
-    }
+    })
   }
 
-  private buildLocalMatch = (
-    match: Song,
-    thumbnail: string | null = null
-  ): LocalSong => ({
+  private buildLocalMatch = ({
+    match,
+    thumbnail = null,
+    title = null
+  }: {
+    match: Song
+    thumbnail?: string | null
+    title?: string | null
+  }): LocalSong => ({
     ...match,
+    title: title || match.title,
     unread: true,
     requestedAt: Date.now(),
     thumbnail

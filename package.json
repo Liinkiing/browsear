@@ -67,6 +67,7 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.6",
     "core-js": "3",
     "cross-env": "^6.0.3",
     "framer-motion": "^1.6.17",
