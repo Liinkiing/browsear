@@ -5,17 +5,27 @@ import { HTMLMotionProps } from 'framer-motion'
 
 interface Props extends HTMLMotionProps<'div'> {
   readonly recording: boolean
+  readonly fetchingMetadatas: boolean
 }
 
-const SearchButton: React.FC<Props> = ({ recording, ...props }) => {
+const SearchButton: React.FC<Props> = ({
+  recording,
+  fetchingMetadatas,
+  ...props
+}) => {
   return (
     <SearchButtonInner
+      disabled={fetchingMetadatas}
       recording={recording}
       {...props}
       initial={recording ? 'recording' : 'initial'}
       animate={recording ? 'recording' : 'initial'}
       variants={variants.SearchButtonInner}>
-      {recording ? 'Stop' : 'Record'}
+      {fetchingMetadatas
+        ? 'Fetching metadata...'
+        : recording
+        ? 'Stop'
+        : 'Record'}
     </SearchButtonInner>
   )
 }

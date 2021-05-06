@@ -5,6 +5,8 @@ export type RuntimeMessage =
   | { type: 'ON_BG_RECORDING_START' }
   | { type: 'ON_BG_RECORDING_STOP'; payload: { match: LocalSong | null } }
   | { type: 'INIT_RECORDING' }
+  | { type: 'START_FETCHING_METADATA' }
+  | { type: 'STOP_FETCHING_METADATA' }
   | { type: 'STOP_RECORDING' }
   | { type: 'MATCH_FOUND'; payload: { match: Song } }
   | { type: 'NO_MATCH_FOUND' }

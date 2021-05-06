@@ -8,8 +8,8 @@ export const SearchButtonInner = styled(motion.div).attrs<{
   recording: boolean
 }>(props => ({
   className: props.recording ? 'is-recording' : null
-}))<{ recording: boolean }>`
-  transition: all 0.3s;
+}))<{ recording: boolean; disabled: boolean }>`
+  transition: all 0.3s, font-size 0s;
   align-items: center;
   background: ${props => theme(props).colors.primary};
   box-shadow: 0 5px 6px rgba(0, 0, 0, 0.18), 0 10px 20px rgba(0, 0, 0, 0.07);
@@ -34,5 +34,12 @@ export const SearchButtonInner = styled(motion.div).attrs<{
     props.recording &&
     css`
       animation: ${blink} 0.5s infinite alternate;
+    `}
+  ${props =>
+    props.disabled &&
+    css`
+      font-size: 16px;
+      opacity: 0.4;
+      pointer-events: none;
     `}
 `

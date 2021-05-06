@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite'
 import useStores from '~popup/hooks/useStores'
 import SearchButton from '~popup/components/search-button'
 import AppButton from '~popup/components/ui/AppButton'
-import { FiSun, FiMoon, FiList } from 'react-icons/fi'
+import { FiList, FiMoon, FiSun } from 'react-icons/fi'
 import AppToolbar from '~popup/components/AppToolbar'
 import HistoryView from '~popup/views/history-view'
 import useChromeOnMessage from '~popup/hooks/useChromeOnMessage'
@@ -25,14 +25,16 @@ const PopupApp: React.FC<Props> = () => {
       requestRecording,
       stopRecording,
       markUnreadAsRead,
+      fetchingMetadatas,
       recording,
       hasUnreadMatches
     },
     app: { clearBadge, toggleTheme, theme }
   } = useStores()
   const onClick = useCallback(() => {
+    if (fetchingMetadatas) return
     recording ? stopRecording() : requestRecording()
-  }, [recording])
+  }, [recording, fetchingMetadatas])
   const [showHistory, setShowHistory] = useState(false)
   useChromeOnMessage(
     'MATCH_FOUND',
@@ -76,7 +78,11 @@ const PopupApp: React.FC<Props> = () => {
               setShowHistory(history => !history)
             }}
           />
-          <SearchButton recording={recording} onClick={onClick} />
+          <SearchButton
+            fetchingMetadatas={fetchingMetadatas}
+            recording={recording}
+            onClick={onClick}
+          />
           <MainAppToolbar>
             <AppButton
               onClick={() => {

@@ -17,6 +17,7 @@ export const SONG_STORAGE_KEY = 'song-store'
 export class SongStore {
   public history = observable.array<LocalSong>([], { deep: false })
 
+  @observable public fetchingMetadatas = false
   @observable public recording =
     chrome.extension.getBackgroundPage()?.recorder.isRecording || false
 
@@ -26,10 +27,19 @@ export class SongStore {
       StorageHelper.set(SONG_STORAGE_KEY, this.serialized)
     })
     chrome.runtime.onMessage.addListener(message => {
-      if (message.type === 'STOP_RECORDING') {
-        this.recording = false
-      } else if (message.type === 'MATCH_FOUND') {
-        this.populateFromStorage()
+      switch (message.type) {
+        case 'START_FETCHING_METADATA':
+          this.fetchingMetadatas = true
+          break
+        case 'STOP_FETCHING_METADATA':
+          this.fetchingMetadatas = false
+          break
+        case 'STOP_RECORDING':
+          this.recording = false
+          break
+        case 'MATCH_FOUND':
+          this.populateFromStorage()
+          break
       }
     })
   }
